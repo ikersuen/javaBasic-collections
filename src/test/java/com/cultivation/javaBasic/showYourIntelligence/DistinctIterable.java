@@ -4,6 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
+
 public class DistinctIterable<T> implements Iterable<T> {
     private Iterable<T> iterable;
 
@@ -27,7 +28,10 @@ class DistinctIterator<E> implements Iterator<E> {
     // TODO: Implement the class to pass the test. Note that you cannot put all items into memory or you will fail.
     // <--start
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
+    private static final Object NULL = new Object();
     private final Iterator<E> iterator;
+    Set<E> seenSoFar = new HashSet<>();
+    private Object next = NULL;
 
     DistinctIterator(Iterator<E> iterator) {
         this.iterator = iterator;
@@ -35,12 +39,31 @@ class DistinctIterator<E> implements Iterator<E> {
 
     @Override
     public boolean hasNext() {
-        throw new NotImplementedException();
+        if (this.next != NULL)
+        {
+            return true;
+        }
+        while (this.iterator.hasNext())
+        {
+            E temp = this.iterator.next();
+            if (this.seenSoFar.add(temp))
+            {
+                this.next = temp;
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public E next() {
-        throw new NotImplementedException();
+        if (this.next != NULL || this.hasNext())
+        {
+            Object temp = this.next;
+            this.next = NULL;
+            return (E) temp;
+        }
+        throw new NoSuchElementException();
     }
     // --end->
 }

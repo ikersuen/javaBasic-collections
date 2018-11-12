@@ -1,0 +1,30 @@
+Q1. What is the knowledge point of the test? Where is the offical document to the knowledge point?
+A1. The knowledge point is about iterator in java. https://docs.oracle.com/javase/7/docs/api/java/util/ListIterator.html https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html
+
+Q2. Why the test failed at first?
+A2. Because the default output is not the expected test result, some are null and some are empty
+
+Q3. Why you corrected the test that way?
+A3.
+[CollectionsTest]
+createList: Simply add the next element in iterator to list
+should_predict_linked_list_operation_result():
+1. iterator.next() ==> "Amy" ^ "Bob"  "Carl"
+2. iterator.add("Juliet") ==>  "Amy" "Juliet" ^ "Bob"  "Carl"
+3. iterator.previous() ==> Return Juliet && "Amy" ^ "Juliet" "Bob"  "Carl"
+4. iterator.remove() ==> "Amy" "Bob"  "Carl" (Because Removes from the list the last element that was returned by next() or previous())
+should_reflects_back_to_original_list_for_sub_range(): determine the reseult after performing subList
+
+[ArrayTest]
+Easy implementation for pop and push, ensureCapacity by storing the original array to temp and enlarge the original array, put back after enlarged
+
+[DistinctIterator]
+reference and learn from eclipse original Distinct iterator
+https://github.com/eclipse/eclipse-collections/blob/master/eclipse-collections/src/main/java/org/eclipse/collections/impl/lazy/iterator/DistinctIterator.java
+
+[SequenceIterator]
+Simply implemented next, hasNext and use a for loop to add the sequence to my arraylist
+
+
+Q4. Do you have further questions on this knowledge point?
+A4. No.
